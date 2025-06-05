@@ -140,7 +140,7 @@ call_jira_release_api() {
     --data '{
       "url": "'"$github_release_url"'",
       "title": "GitHub Release",
-      "url": "'"$github_release_url"'"
+      "category": "documentation"
     }'
 
   for ticket in $tickets; do
