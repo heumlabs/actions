@@ -1,0 +1,24 @@
+name: 'Post Deploy Action'
+description: 'Jira 티켓 처리 및 배포 후 작업'
+
+inputs:
+  github_repository:
+    description: 'GitHub 저장소명 (ex: heumlabs/heum-nexus)'
+    required: true
+  jira_user:
+    description: 'Jira API 사용자명'
+    required: true
+  jira_api_key:
+    description: 'Jira API 키'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - run: ${{ github.action_path }}/post_deploy.sh
+      shell: bash
+      env:
+        GITHUB_TOKEN:       ${{ env.GITHUB_TOKEN }}
+        GITHUB_REPOSITORY:  ${{ inputs.github_repository }}
+        JIRA_USER:          ${{ inputs.jira_user }}
+        JIRA_API_KEY:       ${{ inputs.jira_api_key }}
