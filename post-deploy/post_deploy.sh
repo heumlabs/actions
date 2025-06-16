@@ -141,7 +141,7 @@ call_jira_release_api() {
       "url": "'"$github_release_url"'",
       "title": "GitHub Release",
       "category": "documentation"
-    }'
+    }' > /dev/null
 
   for ticket in $tickets; do
     [ -z "$ticket" ] && continue
@@ -178,7 +178,7 @@ call_github_release_api() {
 
   local github_release_body="자동 배포 기록"
   if [ -n "$jira_release_url" ]; then
-    github_release_body="$github_release_body\nJira Release: $jira_release_url"
+    github_release_body="자동 배포 기록: $jira_release_url"
   fi
 
   # 깔끔한 JSON 처리를 위해 변수 escape
