@@ -40,10 +40,11 @@ defect_tickets() {
 
 get_transition_id() {
   local issue_key=$1
+  # "배포"와 "완료" 두 단어가 모두 포함된 transition 찾기
   curl -s -X GET -u "$JIRA_USER:$JIRA_API_KEY" \
     -H "Content-Type: application/json" \
     "https://heumlabs.atlassian.net/rest/api/3/issue/$issue_key/transitions" | \
-    jq -r '.transitions[] | select(.name=="배포완료" or .name=="배포 완료") | .id' | head -n 1
+    jq -r '.transitions[] | select(.name | test("배포.*완료|완료.*배포")) | .id' | head -n 1
 }
 
 transition_ticket() {
